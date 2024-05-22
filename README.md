@@ -1,5 +1,7 @@
 ### Node.Js Tutorial from freeCodeCamp ###
 We can find the documentation of Node.Js at [Node Docs]('nodejs.org/docs/latest/api')
+This course is taught by John Smilga and we can find all of the slides, and other info used in the course at:
+[Course-API]('course-api.com')
 
 ### Running Programs In The Terminal ###
 We can run any program in the terminal by navigating to the directory the file is located in and typing:
@@ -44,15 +46,66 @@ research. One good way to do this is by looking at the amount of weekly download
 a package is to be useful and work well. When it comes to NPM packages if there is a bug someone else has already fixed it in the 
 package or posted a workaround elsewhere.
 
-# NPM and Git #
+### NPM and Git ###
 
 When pushing code with npm packages install to git we usually don't want to store our node modules folder (the folder created when one
 installs an npm package into a project) in the git commit, nor on a repo hosting site like GitHub. To bypass doing so we create a .gitignore
 file, and the files unwanted in the commit to it. If we need to clone that particular git repo, the package.json file will allow the
 user to just type "npm install" into the terminal and it will install packages into the project.
 
-# nodemon #
+### Nodemon ###
 
 Restarts node for us after updating a file. It is really only needed in development so it should be installed with -D
 
 npm i nodemon -D
+
+This is called a "dev dependency" meaning it will be used during app development but not during production. We can set this up in our
+package.json file under the scripts object. Under the scripts object, we all a "dev" key, and then add our script to start nodemon there.
+This will typically look something like this:
+
+    "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  }
+
+The start script will start node in the traditional manner, and dev will work with nodemon. It will be used with the terminal command
+"npm run dev" which will start up nodemon so that every time we update our file node will automatically restart. 
+
+Nodemon can be installed globally with npm install -g nodemon and this will allow it be used in every project with out using it as a 
+local dependency. This isn't the best practice with every package, and should be avoided unless absolutely necessary.
+
+### NPX ###
+
+npx stands for Node Package eXecute. It was introduced in npm 5.2 and is used to run a cli took without installing the package.
+
+### Package.json & Package-lock.json ###
+
+The package.json file stores all of the information about our node project including dependencies and their versions. This is the file
+that allows us to download our npm packages from a cloned project even though they are stored in a .gitignore file. Running "npm install"
+on any project with a package.json file will automatically download and install all dependencies used on the project. It also stores basic
+information about the project like its' version, author, name, and the scripts used to run the npm packages used in the project.
+
+The package-lock.json is there to make sure that package versioning stays the same through each install of a project. Some packages
+use other packages as dependencies and they require the versions to be correct. We can learn more about package.json files at
+[NodeSource]('https://nodesource.com/blog/the-basics-of-package-json/').
+
+### Package Versions ###
+
+A version can be thought of as a contract between the user and creator of the package. The first number is a major change. The second is a 
+minor change. The third is a patch/bug fix.
+
+### Event Loops in Node.Js ###
+
+The event loop is what allows Node.Js to perform non-blocking I/O operations -- despite the fact that JavaScript is single-threaded -- by 
+offloading operations to the system kernel whenever possible. Since most modern kernels are multi-threaded, they can handle multiple operations
+executing in the background. When one of these operations completes, the kernel tells Node so that the appropriate callback may be added to the
+poll queue to eventually be executed. We can find more information on this at:
+
+[NodeJs.dev]('https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick')
+[NodeJsYT]('https://www.youtube.com/watch?v=PNa9OMajw9w&ab_channel=node.js')
+
+JavaScript being sychronous and single-threaded means it runs line by line. We can offload tasks to the browser by putting events into functions 
+as a callback. When a user requests data, sometimes these requests will be something that may take a long time, and if they are put directly into 
+the event loop this will keep other users from being able to have the requests processed until the initial request is completed. Off-loading these 
+tasks allows the event loop to keep going allowing other users to continue to use the app, and when the first users request is completed it will be 
+replaced into the event loop and sent back to the user who made the initial request.
