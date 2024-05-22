@@ -109,3 +109,13 @@ as a callback. When a user requests data, sometimes these requests will be somet
 the event loop this will keep other users from being able to have the requests processed until the initial request is completed. Off-loading these 
 tasks allows the event loop to keep going allowing other users to continue to use the app, and when the first users request is completed it will be 
 replaced into the event loop and sent back to the user who made the initial request.
+
+### Async Patterns ### (./2-async-patterns/1-blocking.js)
+
+The one issue with async functions is that it becomes really messy if they must be nested within each other. But there are alternatives to doing this. 
+When get nesting wrong, it can fully block the server from allowing any through traffic, affecting all users currently on the site/app. This is why we
+should always strive to write our programs in an asynchronous way.
+
+### Await Patterns (Promises Async/Await) ### ('./2-async-patterns/2-await-patterns.js')
+
+Problems arise when 
