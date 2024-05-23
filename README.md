@@ -118,4 +118,11 @@ should always strive to write our programs in an asynchronous way.
 
 ### Await Patterns (Promises Async/Await) ### ('./2-async-patterns/2-await-patterns.js')
 
-Problems arise when 
+In order to avoid nested blocking function we use promises and the async/await method to handle user requests to the server. This way those requests are 
+offloaded until done, and then returned to the event loop.
+
+### Event Driven Programming ###
+
+A large part of our work is handling events like users clicking buttons, users hovering over a link, and etc.. Essentially as our program executes it is 
+controlled by events. This is called event driven programming, a style in which the flow of the program is influenced by the events that happen within
+the program. This is super important in server side programming and Node.Js. 
